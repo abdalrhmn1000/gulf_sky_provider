@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gulf_sky.provider.gulf_sky_provider.gulf_sky_provider">
+    <uses-permission  android:name="android.permission.INTERNET"  />
    <application
         android:label="Gulf Sky Provider"
         android:name="${applicationName}"

@@ -5,6 +5,7 @@ import 'package:gulf_sky_provider/app.dart';
 import 'package:gulf_sky_provider/domain/core/utils/app_environment.dart';
 import 'package:gulf_sky_provider/injection.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -12,11 +13,26 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarBrightness: Brightness.light));
   runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en')],
+    const MainApp(),
+  );
+}
+
+class MainApp extends StatefulWidget {
+  const MainApp({Key? key}) : super(key: key);
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  Widget build(BuildContext context) {
+    return EasyLocalization(
+      supportedLocales: const [Locale('ar'),Locale('en')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
+      saveLocale: true,
       child: const App(),
-    ),
-  );
+    );
+  }
 }

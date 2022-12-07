@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gulf_sky_provider/domain/user/entities/user_info.dart';
@@ -58,7 +59,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   onTap: () {
                     _navigateRoute(const HomePageRoute(), context);
                   },
-                ),   ListTile(
+                ),
+                ListTile(
                   leading: Icon(
                     Icons.question_mark_rounded,
                     color: Theme.of(context).iconTheme.color,
@@ -67,6 +69,23 @@ class _AppDrawerState extends State<AppDrawer> {
                   onTap: () {
                     _navigateRoute(const AboutPageRoute(), context);
                   },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.translate_rounded,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  title: const Text('lang').tr(),
+                  trailing: CupertinoSwitch(
+                      activeColor: Theme.of(context).iconTheme.color,
+                      value: context.locale.toString() != "en",
+                      onChanged: (val) {
+                        if (context.locale.toString() == 'en') {
+                          context.setLocale(const Locale('ar'));
+                        } else {
+                          context.setLocale(const Locale('en'));
+                        }
+                      }),
                 ),
                 ListTile(
                   leading: Icon(

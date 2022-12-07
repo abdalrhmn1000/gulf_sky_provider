@@ -139,8 +139,8 @@ class _OrderDetailsListItemWidgetState
                           AutoRouter.of(context).push(EditOrderPageRoute(
                               order: widget.order,
                               orderDetails: state.item![0])).then((value) {
-                                if((value as bool)==true){
-                                  widget.onEdit();
+                                if (value!=null && (value as bool)==true) {
+                                widget.onEdit();
                                 }
                           });
                         },
