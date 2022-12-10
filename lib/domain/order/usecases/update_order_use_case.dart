@@ -22,6 +22,7 @@ class UpdateOrderUseCase extends UseCase<String, UpdateOrderUseCaseParams> {
       notes: params.notes,
       date: params.date,
       time: params.time,
+      maintenanceCost: params.maintenanceCost,
     );
   }
 }
@@ -32,6 +33,7 @@ class UpdateOrderUseCaseParams {
   final String? notes;
   final String? date;
   final String? time;
+  final int? maintenanceCost;
 
   UpdateOrderUseCaseParams({
     required this.orderId,
@@ -39,5 +41,6 @@ class UpdateOrderUseCaseParams {
     this.notes,
     this.date,
     this.time,
+    this.maintenanceCost,
   });
 }

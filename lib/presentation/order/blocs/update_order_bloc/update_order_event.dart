@@ -9,6 +9,7 @@ class UpdateOrderRequested extends UpdateOrderEvent {
   final String? notes;
   final String? date;
   final String? time;
+  final int? maintenanceCost;
 
   UpdateOrderRequested({
     required this.orderId,
@@ -16,5 +17,6 @@ class UpdateOrderRequested extends UpdateOrderEvent {
     this.notes,
     this.date,
     this.time,
+    this.maintenanceCost,
   });
 }

@@ -21,6 +21,7 @@ class UpdateOrderBloc extends Bloc<UpdateOrderEvent, BaseState<String>> {
           notes: event.notes,
           time: event.time,
           image: event.image,
+          maintenanceCost: event.maintenanceCost,
         ));
 
         emit(

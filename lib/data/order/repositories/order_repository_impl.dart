@@ -15,6 +15,7 @@ import 'package:gulf_sky_provider/domain/order/entities/order_details.dart';
 import 'package:gulf_sky_provider/domain/order/entities/service.dart';
 import 'package:gulf_sky_provider/domain/order/repositories/order_repository.dart';
 import 'package:gulf_sky_provider/domain/order/entities/order.dart' as order;
+import 'package:gulf_sky_provider/domain/order/usecases/create_order_detail_item_use_case.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
@@ -48,7 +49,8 @@ class OrderRepositoryImpl extends BaseRepositoryImpl
     return request(
       () async {
         final result = await remote.getInventoryItems();
-        return Right(result.data!.map((e) => e.toDomain()).toList());
+        return Right(result.data!.map((e) => e.toDomain()).toList()
+          ..removeWhere((element) => element.quantity! < 1));
       },
     );
   }
@@ -96,6 +98,7 @@ class OrderRepositoryImpl extends BaseRepositoryImpl
     String? notes,
     String? date,
     String? time,
+    int? maintenanceCost,
   }) {
     return request(
       () async {
@@ -105,6 +108,7 @@ class OrderRepositoryImpl extends BaseRepositoryImpl
           notes: notes,
           date: date,
           time: time,
+          maintenanceCost: maintenanceCost,
         );
         return Right(result);
       },
@@ -127,6 +131,24 @@ class OrderRepositoryImpl extends BaseRepositoryImpl
           duration: duration,
         );
         return Right(result);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, String>> createOrderDetailItem(
+      {required List<CreateOrderDetailItemUseCaseParams> items}) {
+    return request(
+      () async {
+        for (var i in items) {
+          await remote.createOrderDetailItem(
+            orderDetailId: i.orderDetailId,
+            inventoryId: i.inventoryId,
+            quantity: i.quantity,
+            vat: i.vat,
+          );
+        }
+        return const Right('true');
       },
     );
   }

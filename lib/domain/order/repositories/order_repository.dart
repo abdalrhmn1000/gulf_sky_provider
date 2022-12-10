@@ -7,6 +7,7 @@ import 'package:gulf_sky_provider/domain/order/entities/inventory.dart';
 import 'package:gulf_sky_provider/domain/order/entities/order.dart' as order;
 import 'package:gulf_sky_provider/domain/order/entities/order_details.dart';
 import 'package:gulf_sky_provider/domain/order/entities/service.dart';
+import 'package:gulf_sky_provider/domain/order/usecases/create_order_detail_item_use_case.dart';
 
 abstract class OrderRepository {
   Future<Either<Failure, List<order.Order>>> getMyOrders();
@@ -31,6 +32,7 @@ abstract class OrderRepository {
     String? notes,
     String? date,
     String? time,
+    int? maintenanceCost,
   });
 
   Future<Either<Failure, String>> updateOrderDetails({
@@ -38,5 +40,9 @@ abstract class OrderRepository {
     File? image,
     double? price,
     String? duration,
+  });
+
+  Future<Either<Failure, String>> createOrderDetailItem({
+    required  List<CreateOrderDetailItemUseCaseParams> items
   });
 }

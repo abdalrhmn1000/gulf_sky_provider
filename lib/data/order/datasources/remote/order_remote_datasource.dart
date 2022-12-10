@@ -37,6 +37,7 @@ abstract class OrderRemoteDataSource {
     String? notes,
     String? date,
     String? time,
+    int? maintenanceCost,
   });
 
   Future<String> updateOrderDetails({
@@ -44,6 +45,12 @@ abstract class OrderRemoteDataSource {
     File? image,
     double? price,
     String? duration,
+  });
+  Future<String> createOrderDetailItem({
+    required int orderDetailId,
+    required int inventoryId,
+    required int? quantity,
+    required int vat,
   });
 }
 
@@ -89,6 +96,7 @@ abstract class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
     @Part() String? notes,
     @Part() String? date,
     @Part() String? time,
+    @Part(name: 'maintenance_cost') int? maintenanceCost,
   });
 
   @override
@@ -98,5 +106,13 @@ abstract class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
     @Part(contentType: 'image/jpeg') File? image,
     @Part() double? price,
     @Part() String? duration,
+  });
+  @override
+  @POST('/api/admin/CreateOrderDetailItem')
+  Future<String> createOrderDetailItem({
+    @Part(name: 'order_detail_id') required int orderDetailId,
+    @Part(name: 'inventory_id') required int inventoryId,
+    @Part() required int? quantity,
+    @Part() required int vat,
   });
 }

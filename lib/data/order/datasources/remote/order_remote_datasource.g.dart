@@ -165,6 +165,7 @@ class _OrderRemoteDataSourceImpl implements OrderRemoteDataSourceImpl {
     notes,
     date,
     time,
+    maintenanceCost,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -201,6 +202,12 @@ class _OrderRemoteDataSourceImpl implements OrderRemoteDataSourceImpl {
       _data.fields.add(MapEntry(
         'time',
         time,
+      ));
+    }
+    if (maintenanceCost != null) {
+      _data.fields.add(MapEntry(
+        'maintenance_cost',
+        maintenanceCost.toString(),
       ));
     }
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
@@ -265,6 +272,52 @@ class _OrderRemoteDataSourceImpl implements OrderRemoteDataSourceImpl {
         .compose(
           _dio.options,
           '/api/admin/editOrderDetail',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<String> createOrderDetailItem({
+    required orderDetailId,
+    required inventoryId,
+    quantity,
+    required vat,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'order_detail_id',
+      orderDetailId.toString(),
+    ));
+    _data.fields.add(MapEntry(
+      'inventory_id',
+      inventoryId.toString(),
+    ));
+    if (quantity != null) {
+      _data.fields.add(MapEntry(
+        'quantity',
+        quantity.toString(),
+      ));
+    }
+    _data.fields.add(MapEntry(
+      'vat',
+      vat.toString(),
+    ));
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/api/admin/CreateOrderDetailItem',
           queryParameters: queryParameters,
           data: _data,
         )

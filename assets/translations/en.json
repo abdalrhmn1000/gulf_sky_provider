@@ -43,5 +43,11 @@
   "hour": "Hour",
   "about": "About",
   "about_description": "Founded with the vision of creating a lasting legacy, since the company was established in 2007 in Sharjah in the UAE, Gulf Sky has grown to become a respected, fully integrated engineering consultancy with offices across the UAE.\\n Gulf Sky is dedicated to operating with professionalism and reliability in all aspects of our business. We have an unwavering commitment to delivering on our promises, as well as providing services that exceed expectations. This has enabled us to develop a strong reputation as premier providers of quality and innovative solutions for the public and private commercial and residential sectors.\\nA company built around the integrity and strong family values of our founder, Gulf Sky’s growth and success is powered by the dedication of our people, and the dynamic approach of our expert team enables us to deliver exceptional solutions every time.",
-  "lang": "English"
+  "lang": "English",
+  "choose_image": "Choose image",
+  "choose_items": "Choose items",
+  "items": "Items",
+  "search": "Search",
+  "price": "Price"
+
 }
