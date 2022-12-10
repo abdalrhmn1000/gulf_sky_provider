@@ -78,7 +78,6 @@ class _EditOrderPageState extends State<EditOrderPage>
     return Scaffold(
         appBar: CustomAppBar(
           leading: const BackLeadingIcon(),
-          title: Text('edit'.tr()),
         ),
         body: MultiBlocListener(
           listeners: [
@@ -143,25 +142,25 @@ class _EditOrderPageState extends State<EditOrderPage>
                             const TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          'choose_image'.tr(),
-                          style: Theme.of(context).textTheme.headline3,
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            final image = await _picker.pickImage(
-                                source: ImageSource.camera);
+                    GestureDetector(
+                      onTap: () async {
+                        final image =
+                            await _picker.pickImage(source: ImageSource.camera);
 
-                            setState(() {
-                              _updatedImage =
-                                  image == null ? null : File(image.path);
-                            });
-                          },
-                          child: Container(
+                        setState(() {
+                          _updatedImage =
+                              image == null ? null : File(image.path);
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'pick_an_image'.tr(),
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                          Container(
                             width: 75,
                             height: 75,
                             margin: const EdgeInsets.only(
@@ -187,6 +186,8 @@ class _EditOrderPageState extends State<EditOrderPage>
                                         imageUrl:
                                             widget.orderDetails.image ?? '',
                                         fit: BoxFit.cover,
+                                        errorWidget: (c, a, s) => const Icon(
+                                            Icons.add_a_photo_outlined),
                                       ),
                                     );
                                   } else {
@@ -197,8 +198,8 @@ class _EditOrderPageState extends State<EditOrderPage>
                               },
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     TextFormField(
                       controller: _noteController,
@@ -245,7 +246,8 @@ class _EditOrderPageState extends State<EditOrderPage>
                         if (state.isSuccess) {
                           return DropdownSearch<Inventory>.multiSelection(
                             items: state.item!,
-                            itemAsString: (item) => '${item.name}, ${'price'.tr()}: ${item.price??0.0}',
+                            itemAsString: (item) =>
+                                '${item.name}, ${'price'.tr()}: ${item.price ?? 0.0}',
                             popupProps: PopupPropsMultiSelection.bottomSheet(
                                 showSearchBox: true,
                                 title: Padding(
@@ -360,7 +362,7 @@ class _EditOrderPageState extends State<EditOrderPage>
                     .add(CreateOrderDetailItemRequested(items: items));
               }
             },
-            child: Text('edit'.tr()),
+            child: Text('save'.tr()),
           ),
         ));
   }

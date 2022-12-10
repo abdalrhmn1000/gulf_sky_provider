@@ -48,5 +48,15 @@
   "choose_items": "إختر البنود",
   "items": "البنود",
   "search": "بحث",
-  "price": "السعر"
+  "price": "السعر",
+  "settings": "الإعدادات",
+  "notifications": "الإعدادات",
+  "pick_an_image": "إلتقط صورة",
+  "change_language": "تغيير اللغة",
+  "frequent_asked_question": "الاسئلة الاكثر تكراراً",
+  "general": "عام",
+  "how_does_it_work": "كيف يعمل؟",
+  "how_to_start": "كيف تبدأ؟",
+  "how_to_payment": "كيف تدفع؟",
+  "join_our_community": "انضم إلى مجتمعنا"
 }

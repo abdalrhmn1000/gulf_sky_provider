@@ -75,3 +75,4 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
+    - assets/icons/

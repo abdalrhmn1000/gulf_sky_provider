@@ -45,7 +45,7 @@ class _AppState extends State<App> {
               listenWhen: (s1, s2) => s1.runtimeType != s2.runtimeType,
               listener: (context, state) async {
                 if (state is Authenticated) {
-                  _appRouter.pushAndPopUntil(const HomePageRoute(),
+                  _appRouter.pushAndPopUntil(const MainPageRoute(),
                       predicate: (route) => false);
                 }
                 if (state is Unauthenticated) {

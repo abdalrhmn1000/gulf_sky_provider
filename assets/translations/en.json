@@ -48,6 +48,15 @@
   "choose_items": "Choose items",
   "items": "Items",
   "search": "Search",
-  "price": "Price"
-
+  "price": "Price",
+  "settings": "Settings",
+  "notifications": "Notifications",
+  "pick_an_image": "Pick an image",
+  "change_language": "Change language",
+  "frequent_asked_question": "Frequent Asked Question",
+  "general": "General",
+  "how_does_it_work": "How does it work?",
+  "how_to_start": "How to start?",
+  "how_to_payment": "How to payment?",
+  "join_our_community": "Join Our Community"
 }
