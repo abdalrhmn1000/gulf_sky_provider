@@ -120,12 +120,26 @@ class _OrderDetailsListItemWidgetState
                           style: Theme.of(context).textTheme.caption?.copyWith(
                               fontWeight: FontWeight.w600, fontSize: 17),
                         ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5,bottom: 5),
+                          width: MediaQuery.of(context).size.width*0.57,
+                          child: Text(
+                            widget.order.address??'',
+                            style: Theme.of(context).textTheme.caption?.copyWith(
+                                fontWeight: FontWeight.w600, fontSize: 17),
+                          ),
+                        ),
                         Text(
                           DateFormat('yyyy-MM-dd hh:mm a')
                               .format(state.item![0].createdAt!),
                           style: Theme.of(context).textTheme.caption?.copyWith(
                               fontWeight: FontWeight.w600, fontSize: 17),
+                        ),  Text(
+                         widget.order.status??'',
+                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                              fontWeight: FontWeight.w600, fontSize: 17),
                         ),
+
                       ],
                     )
                   ],

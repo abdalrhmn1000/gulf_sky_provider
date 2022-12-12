@@ -23,8 +23,8 @@ import 'package:gulf_sky_provider/presentation/order/blocs/create_order_detail_i
 import 'package:gulf_sky_provider/presentation/order/blocs/inventory_list_bloc/inventory_list_bloc.dart';
 import 'package:gulf_sky_provider/presentation/order/blocs/update_order_bloc/update_order_bloc.dart';
 import 'package:gulf_sky_provider/presentation/order/blocs/update_order_details_bloc/update_order_details_bloc.dart';
+import 'package:gulf_sky_provider/presentation/order/widgets/edit_order/choose_photo_option_dialog_widget.dart';
 import 'package:gulf_sky_provider/presentation/order/widgets/edit_order/item_quantity.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditOrderPage extends StatefulWidget {
   final or.Order order;
@@ -52,7 +52,6 @@ class _EditOrderPageState extends State<EditOrderPage>
   final TextEditingController _noteController = TextEditingController();
 
   DateTime dateTime = DateTime.now();
-  final ImagePicker _picker = ImagePicker();
   File? _updatedImage;
 
   final InventoryListBloc _inventoryListBloc = getIt<InventoryListBloc>();
@@ -144,13 +143,18 @@ class _EditOrderPageState extends State<EditOrderPage>
                     ),
                     GestureDetector(
                       onTap: () async {
-                        final image =
-                            await _picker.pickImage(source: ImageSource.camera);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return  ChoosePhotoOptionDialogWidget(image: (image){
+                              setState(() {
+                                _updatedImage = image;
+                              });
+                            });
+                          },
+                        );
 
-                        setState(() {
-                          _updatedImage =
-                              image == null ? null : File(image.path);
-                        });
+
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
