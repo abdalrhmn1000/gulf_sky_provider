@@ -15,23 +15,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Assets.images.logo.image(
-                width: 224,
-                height: 100,
+        child: Column(
+          children: [
+            Assets.images.logo.image(
+              width: 224,
+              height: 100,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Text(
+                'notifications'.tr(),
+                style: const TextStyle(fontSize: 25),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  'notifications'.tr(),
-                  style: const TextStyle(fontSize: 25),
-                ),
-              ),
-              const MyOrderListItemWidget(),
-            ],
-          ),
+            ),
+            const Expanded(child: MyOrderListItemWidget()),
+          ],
         ),
       ),
     );

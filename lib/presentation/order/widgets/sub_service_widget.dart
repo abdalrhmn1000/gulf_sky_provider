@@ -1,9 +1,10 @@
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gulf_sky_provider/domain/order/entities/service.dart';
 import 'package:gulf_sky_provider/injection.dart';
 import 'package:gulf_sky_provider/presentation/core/blocs/core/base_state.dart';
+import 'package:gulf_sky_provider/presentation/core/widgets/custom_text_rich_widget.dart';
 import 'package:gulf_sky_provider/presentation/core/widgets/error_view.dart';
 import 'package:gulf_sky_provider/presentation/order/blocs/sub_service_by_id_bloc/sub_service_by_id_bloc.dart';
 
@@ -57,16 +58,9 @@ class _SubServiceWidgetState extends State<SubServiceWidget> {
           );
         }
         if (state.isSuccess) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width * 0.57,
-            child: Text(
-              state.item?.name?.toString() ?? '',
-              style: Theme.of(context)
-                  .textTheme
-                  .caption
-                  ?.copyWith(fontWeight: FontWeight.w600, fontSize: 17),
-            ),
-          );
+          return CustomTextRickWidget(
+              title: 'sub_service'.tr(),
+              description: state.item?.name?.toString() ?? '');
         } else {
           return const SizedBox.shrink();
         }

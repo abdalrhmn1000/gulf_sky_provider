@@ -77,6 +77,64 @@ class _OrderRemoteDataSourceImpl implements OrderRemoteDataSourceImpl {
   }
 
   @override
+  Future<BaseResponse<List<BuildingModel>>> getBuildings() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<BuildingModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/building',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<BuildingModel>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<BuildingModel>(
+              (i) => BuildingModel.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<List<UserInfoModel>>> getSupervisors() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<UserInfoModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/api/admin/getSupervisors',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<UserInfoModel>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<UserInfoModel>(
+              (i) => UserInfoModel.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseResponse<List<OrderDetailsModel>>> getOrderDetails(
       {required orderId}) async {
     const _extra = <String, dynamic>{};

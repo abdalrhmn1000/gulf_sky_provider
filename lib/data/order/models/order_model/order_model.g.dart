@@ -19,4 +19,12 @@ OrderModel _$OrderModelFromJson(Map json) => OrderModel(
       taxNumber: json['tax_number'] as String?,
       priority: json['priority'] as String?,
       status: json['status'] as String?,
+      maintenanceCost: (json['maintenance_cost'] as num?)?.toDouble(),
+      assignedTo: json['assigned_to'] as int?,
+      buildingId: json['building_id'] as int?,
+      isDraft: json['is_draft'] as int?,
+      isRepeated: json['is_repeated'] as int?,
+      isTanent: json['is_real_estate_tanent'] as int?,
+      roomNumber: json['room_number'] as String?,
+      userId: json['user_id'] as int?,
     );

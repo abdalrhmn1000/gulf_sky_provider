@@ -9,10 +9,13 @@ import 'package:gulf_sky_provider/injection.dart';
 import 'package:gulf_sky_provider/presentation/core/blocs/core/base_state.dart';
 import 'package:gulf_sky_provider/presentation/core/routes/router.dart';
 import 'package:gulf_sky_provider/presentation/core/utils/generated_assets/assets.gen.dart';
+import 'package:gulf_sky_provider/presentation/core/widgets/custom_text_rich_widget.dart';
 import 'package:gulf_sky_provider/presentation/core/widgets/error_view.dart';
 import 'package:gulf_sky_provider/presentation/core/widgets/loader.dart';
 import 'package:gulf_sky_provider/presentation/core/widgets/shimmer.dart';
+import 'package:gulf_sky_provider/presentation/order/blocs/building_list_bloc/building_list_bloc.dart';
 import 'package:gulf_sky_provider/presentation/order/blocs/order_details_bloc/order_details_bloc.dart';
+import 'package:gulf_sky_provider/presentation/order/blocs/supervisor_list_bloc/supervisor_list_bloc.dart';
 import 'package:gulf_sky_provider/presentation/order/widgets/service_widget.dart';
 import 'package:gulf_sky_provider/presentation/order/widgets/sub_service_widget.dart';
 import 'package:gulf_sky_provider/domain/order/entities/order.dart' as or;
@@ -20,6 +23,7 @@ import 'package:gulf_sky_provider/domain/order/entities/order.dart' as or;
 class OrderDetailsListItemWidget extends StatefulWidget {
   final or.Order order;
   final void Function() onEdit;
+
   const OrderDetailsListItemWidget({
     Key? key,
     required this.order,
@@ -110,36 +114,109 @@ class _OrderDetailsListItemWidgetState
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        CustomTextRickWidget(
+                            title: 'name'.tr(),
+                            description: widget.order.name ?? ''),
+                        CustomTextRickWidget(
+                            title: 'date'.tr(),
+                            description: widget.order.date ?? ''),
+                        CustomTextRickWidget(
+                            title: 'time'.tr(),
+                            description: widget.order.time ?? ''),
+                        if (widget.order.isTanent != null)
+                          CustomTextRickWidget(
+                              title: 'tenant'.tr(),
+                              description: widget.order.isTanent == 0
+                                  ? 'no'.tr()
+                                  : 'yes'.tr()),
+                        if (BlocProvider.of<BuildingListBloc>(context)
+                            .state
+                            .isSuccess)
+                          CustomTextRickWidget(
+                              title: 'building'.tr(),
+                              description: BlocProvider.of<BuildingListBloc>(
+                                          context)
+                                      .state
+                                      .item
+                                      ?.firstWhere((element) =>
+                                          element.id == widget.order.buildingId)
+                                      .name ??
+                                  ''),
+                        if (widget.order.roomNumber != null)
+                          CustomTextRickWidget(
+                              title: 'room_number'.tr(),
+                              description: widget.order.roomNumber ?? ''),
+                        if (widget.order.taxNumber != null)
+                          CustomTextRickWidget(
+                              title: 'tax_number'.tr(),
+                              description: widget.order.taxNumber ?? ''),
+                        if (widget.order.priority != null)
+                          CustomTextRickWidget(
+                              title: 'priority'.tr(),
+                              description: widget.order.priority ?? ''),
+                        CustomTextRickWidget(
+                            title: 'created_at'.tr(),
+                            description: DateFormat('yyyy-MM-dd hh:mm a')
+                                .format(state.item![0].createdAt!)),
+                        if (widget.order.orderNumber != null)
+                          CustomTextRickWidget(
+                              title: 'order_number'.tr(),
+                              description: widget.order.orderNumber ?? ''),
+                        if (widget.order.totalPrice != null)
+                          CustomTextRickWidget(
+                              title: 'total_price'.tr(),
+                              description:
+                                  widget.order.totalPrice?.toString() ?? ''),
+                        if (widget.order.isDraft != null)
+                          CustomTextRickWidget(
+                              title: 'is_draft'.tr(),
+                              description: widget.order.isDraft == 0
+                                  ? 'no'.tr()
+                                  : 'yes'.tr()),
+                        if (widget.order.notes != null)
+                          CustomTextRickWidget(
+                              title: 'notes'.tr(),
+                              description: widget.order.notes ?? ''),
+                        if (widget.order.status != null)
+                          CustomTextRickWidget(
+                              title: 'status'.tr(),
+                              description: widget.order.status ?? ''),
+                        if (BlocProvider.of<SupervisorListBloc>(context)
+                            .state
+                            .isSuccess)
+                          CustomTextRickWidget(
+                              title: 'user'.tr(),
+                              description:
+                                  BlocProvider.of<SupervisorListBloc>(context)
+                                          .state
+                                          .item
+                                          ?.firstWhere((element) =>
+                                              element.id == widget.order.userId)
+                                          .fullName ??
+                                      ''),
+                        if (widget.order.isRepeated != null)
+                          CustomTextRickWidget(
+                              title: 'is_repeated'.tr(),
+                              description: widget.order.isRepeated == 0
+                                  ? 'no'.tr()
+                                  : 'yes'.tr()),
+                        CustomTextRickWidget(
+                            title: 'address'.tr(),
+                            description: widget.order.address ?? ''),
                         if (state.item![0].servicesId != null)
                           ServiceWidget(serviceId: state.item![0].servicesId!),
                         if (state.item![0].subServiceId != null)
                           SubServiceWidget(
                               subServiceId: state.item![0].subServiceId!),
-                        Text(
-                          state.item![0].price?.toString() ?? '',
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                              fontWeight: FontWeight.w600, fontSize: 17),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 5,bottom: 5),
-                          width: MediaQuery.of(context).size.width*0.57,
-                          child: Text(
-                            widget.order.address??'',
-                            style: Theme.of(context).textTheme.caption?.copyWith(
-                                fontWeight: FontWeight.w600, fontSize: 17),
-                          ),
-                        ),
-                        Text(
-                          DateFormat('yyyy-MM-dd hh:mm a')
-                              .format(state.item![0].createdAt!),
-                          style: Theme.of(context).textTheme.caption?.copyWith(
-                              fontWeight: FontWeight.w600, fontSize: 17),
-                        ),  Text(
-                         widget.order.status??'',
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              fontWeight: FontWeight.w600, fontSize: 17),
-                        ),
-
+                        CustomTextRickWidget(
+                            title: 'price'.tr(),
+                            description:
+                                state.item![0].price?.toString() ?? ''),
+                        if (state.item![0].duration != null)
+                          CustomTextRickWidget(
+                              title: 'duration'.tr(),
+                              description:
+                                  state.item![0].duration?.toString() ?? ''),
                       ],
                     )
                   ],
@@ -150,12 +227,14 @@ class _OrderDetailsListItemWidgetState
                     //height: 100,
                     child: IconButton(
                         onPressed: () {
-                          AutoRouter.of(context).push(EditOrderPageRoute(
-                              order: widget.order,
-                              orderDetails: state.item![0])).then((value) {
-                                if (value!=null && (value as bool)==true) {
-                                widget.onEdit();
-                                }
+                          AutoRouter.of(context)
+                              .push(EditOrderPageRoute(
+                                  order: widget.order,
+                                  orderDetails: state.item![0]))
+                              .then((value) {
+                            if (value != null && (value as bool) == true) {
+                              widget.onEdit();
+                            }
                           });
                         },
                         icon: const Icon(Icons.edit)))

@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:gulf_sky_provider/data/core/models/base_response/base_response.dart';
 import 'package:gulf_sky_provider/data/core/utils/configuration.dart';
+import 'package:gulf_sky_provider/data/order/models/building_model/building_model.dart';
 import 'package:gulf_sky_provider/data/order/models/inventory_model/inventory_model.dart';
 import 'package:gulf_sky_provider/data/order/models/order_details_model/order_details_model.dart';
 import 'package:gulf_sky_provider/data/order/models/order_model/order_model.dart';
 import 'package:gulf_sky_provider/data/order/models/service_model/service_model.dart';
+import 'package:gulf_sky_provider/data/user/models/user_info_model/user_info_model.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'package:injectable/injectable.dart';
@@ -18,6 +20,10 @@ abstract class OrderRemoteDataSource {
   Future<BaseResponse<List<OrderModel>>> getMyOrders();
 
   Future<BaseResponse<List<InventoryModel>>> getInventoryItems();
+
+  Future<BaseResponse<List<BuildingModel>>> getBuildings();
+
+  Future<BaseResponse<List<UserInfoModel>>> getSupervisors();
 
   Future<BaseResponse<List<OrderDetailsModel>>> getOrderDetails({
     required int orderId,
@@ -46,6 +52,7 @@ abstract class OrderRemoteDataSource {
     double? price,
     String? duration,
   });
+
   Future<String> createOrderDetailItem({
     required int orderDetailId,
     required int inventoryId,
@@ -69,6 +76,14 @@ abstract class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
   @override
   @GET('/api/admin/getInventoryItems')
   Future<BaseResponse<List<InventoryModel>>> getInventoryItems();
+
+  @override
+  @GET('/api/building')
+  Future<BaseResponse<List<BuildingModel>>> getBuildings();
+
+  @override
+  @GET('/api/admin/getSupervisors')
+  Future<BaseResponse<List<UserInfoModel>>> getSupervisors();
 
   @override
   @GET('/api/admin/getOrderDetails?order_id={orderId}')
@@ -107,6 +122,7 @@ abstract class OrderRemoteDataSourceImpl implements OrderRemoteDataSource {
     @Part() double? price,
     @Part() String? duration,
   });
+
   @override
   @POST('/api/admin/CreateOrderDetailItem')
   Future<String> createOrderDetailItem({

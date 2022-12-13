@@ -1,7 +1,6 @@
 import 'package:gulf_sky_provider/domain/order/entities/order.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'order_model.g.dart';
 
 @JsonSerializable()
@@ -21,6 +20,22 @@ class OrderModel {
   final String? taxNumber;
   final String? priority;
   final String? status;
+  @JsonKey(name: 'is_real_estate_tanent')
+  final int? isTanent;
+  @JsonKey(name: 'is_draft')
+  final int? isDraft;
+  @JsonKey(name: 'building_id')
+  final int? buildingId;
+  @JsonKey(name: 'assigned_to')
+  final int? assignedTo;
+  @JsonKey(name: 'maintenance_cost')
+  final double? maintenanceCost;
+  @JsonKey(name: 'is_repeated')
+  final int? isRepeated;
+  @JsonKey(name: 'room_number')
+  final String? roomNumber;
+  @JsonKey(name: 'user_id')
+  final int? userId;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
@@ -38,22 +53,38 @@ class OrderModel {
     this.taxNumber,
     this.priority,
     this.status,
+    this.maintenanceCost,
+    this.assignedTo,
+    this.buildingId,
+    this.isDraft,
+    this.isRepeated,
+    this.isTanent,
+    this.roomNumber,
+    this.userId,
   });
 }
 
 extension MapToDomain on OrderModel {
   Order toDomain() => Order(
-        id: id,
-        name: name,
-        orderNumber: orderNumber,
-        date: date,
-        time: time,
-        address: address,
-        phone: phone,
-        totalPrice: totalPrice,
-        notes: notes,
-        taxNumber: taxNumber,
-        priority: priority,
-        status: status,
-      );
+      id: id,
+      name: name,
+      orderNumber: orderNumber,
+      date: date,
+      time: time,
+      address: address,
+      phone: phone,
+      totalPrice: totalPrice,
+      notes: notes,
+      taxNumber: taxNumber,
+      priority: priority,
+      status: status,
+      maintenanceCost: maintenanceCost,
+      assignedTo: assignedTo,
+      buildingId: buildingId,
+      isDraft: isDraft,
+      isRepeated: isRepeated,
+      isTanent: isTanent,
+        roomNumber: roomNumber,
+      userId: userId,
+  );
 }

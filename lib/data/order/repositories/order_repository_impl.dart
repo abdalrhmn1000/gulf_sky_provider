@@ -4,18 +4,22 @@ import 'package:dartz/dartz.dart';
 import 'package:gulf_sky_provider/data/core/repositories/base_repository_impl.dart';
 import 'package:gulf_sky_provider/data/core/utils/configuration.dart';
 import 'package:gulf_sky_provider/data/order/datasources/remote/order_remote_datasource.dart';
+import 'package:gulf_sky_provider/data/order/models/building_model/building_model.dart';
 import 'package:gulf_sky_provider/data/order/models/inventory_model/inventory_model.dart';
 import 'package:gulf_sky_provider/data/order/models/order_details_model/order_details_model.dart';
 import 'package:gulf_sky_provider/data/order/models/order_model/order_model.dart';
 import 'package:gulf_sky_provider/data/order/models/service_model/service_model.dart';
+import 'package:gulf_sky_provider/data/user/models/user_info_model/user_info_model.dart';
 import 'package:gulf_sky_provider/domain/core/entities/failures.dart';
 import 'package:gulf_sky_provider/domain/core/utils/network/network_info.dart';
+import 'package:gulf_sky_provider/domain/order/entities/building.dart';
 import 'package:gulf_sky_provider/domain/order/entities/inventory.dart';
 import 'package:gulf_sky_provider/domain/order/entities/order_details.dart';
 import 'package:gulf_sky_provider/domain/order/entities/service.dart';
 import 'package:gulf_sky_provider/domain/order/repositories/order_repository.dart';
 import 'package:gulf_sky_provider/domain/order/entities/order.dart' as order;
 import 'package:gulf_sky_provider/domain/order/usecases/create_order_detail_item_use_case.dart';
+import 'package:gulf_sky_provider/domain/user/entities/user_info.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
@@ -39,6 +43,26 @@ class OrderRepositoryImpl extends BaseRepositoryImpl
     return request(
       () async {
         final result = await remote.getMyOrders();
+        return Right(result.data!.map((e) => e.toDomain()).toList());
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<UserInfo>>> getSupervisors() {
+    return request(
+      () async {
+        final result = await remote.getSupervisors();
+        return Right(result.data!.map((e) => e.toDomain()).toList());
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<Building>>> getBuildings() {
+    return request(
+      () async {
+        final result = await remote.getBuildings();
         return Right(result.data!.map((e) => e.toDomain()).toList());
       },
     );

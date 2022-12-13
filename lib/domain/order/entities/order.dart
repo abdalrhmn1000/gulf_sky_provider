@@ -11,7 +11,14 @@ class Order {
   final String? taxNumber;
   final String? priority;
   final String? status;
-
+  final int? isTanent;
+  final int? isDraft;
+  final int? buildingId;
+  final int? assignedTo;
+  final double? maintenanceCost;
+  final int? isRepeated;
+  final String? roomNumber;
+  final int? userId;
   Order({
     required this.id,
     this.name,
@@ -25,5 +32,13 @@ class Order {
     this.taxNumber,
     this.priority,
     this.status,
+    this.maintenanceCost,
+    this.assignedTo,
+    this.buildingId,
+    this.isDraft,
+    this.isRepeated,
+    this.isTanent,
+    this.roomNumber,
+    this.userId,
   });
 }

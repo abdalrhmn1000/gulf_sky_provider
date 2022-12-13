@@ -61,5 +61,25 @@
   "join_our_community": "Join Our Community",
   "gallery": "Gallery",
   "camera": "Camera",
-  "take_a_photo_from": "Take a photo from"
+  "take_a_photo_from": "Take a photo from",
+
+  "created_at": "Created At",
+  "tenant": "Tenant",
+  "room_number": "Room Number",
+  "tax_number": "Tax Number",
+  "priority": "Priority",
+  "order_number": "Order Number",
+  "total_price": "Total Price",
+  "is_draft": "Is Draft",
+  "status": "Status",
+  "is_repeated": "Is Repeated",
+  "service": "Service",
+  "sub_service": "Sub Service",
+  "address": "Address",
+  "duration": "Duration",
+  "user": "User",
+  "building": "Building",
+  "time": "Time",
+  "yes": "Yes",
+  "no": "No"
 }
